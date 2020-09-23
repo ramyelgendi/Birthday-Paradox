@@ -2,10 +2,6 @@ package com.company;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-
-import java.util.List;
-import java.util.Stack;
 
 /**
  * The class Statistics accumulates the results of
