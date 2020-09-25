@@ -1,7 +1,7 @@
 Assignment 1 - Birthday Paradox
 ================================
 * Ramy ElGendi - 900170269 - Section 1
-* Melissa
+* Melissa - 900 - Section 1
 
 
 Description
