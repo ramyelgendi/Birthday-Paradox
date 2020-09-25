@@ -82,8 +82,8 @@ public class BirthdayParadox {
         System.out.println("Range Begin: "+rangei+"\nRange End: "+rangee+"\nNumOfRuns: "+numberofruns+"\n");
 
         int numberOfSteps = rangee/rangei;
-        double mean[] = new double[numberOfSteps];
-        double sd[] = new double[numberOfSteps];
+        double[] mean = new double[numberOfSteps];
+        double[] sd = new double[numberOfSteps];
 
         Statistics statistics;
 

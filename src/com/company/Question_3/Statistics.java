@@ -1,4 +1,4 @@
-package com.company;
+package com.company.Question_3;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -22,8 +22,7 @@ public class Statistics {
 
 // The numberOfRuns the number of experiments that will be run
     public Statistics(int numberOfRuns){    // Initializing
-        //Stack = new Stack<>();
-        List = new ArrayList<Integer>();
+        List = new ArrayList<>();
         this.numberOfRuns=numberOfRuns;
         this.Counter=0;
         this.Maxmimum = Integer.MIN_VALUE;
@@ -44,9 +43,13 @@ occur. The param value the result returned from a new experiment */
     /* The function returns the current average of the values passed to the method updateStatistic */
     public double average(){
         double sum = 0;
-        for(int num : List)
+        for(int num : List) {
             sum += num;
-
+            if(num < Minimum)
+                Minimum = num;
+            if(num > Maxmimum)
+                Maxmimum = num;
+        }
         return sum/List.size();
     }
     /* The function returns the current standard deviation of the values passed to the method updateStatistic */
@@ -64,11 +67,14 @@ occur. The param value the result returned from a new experiment */
     It simply returns a string back describing the text that will be printed out. */
     public String toString(){
         String output;
-        DecimalFormat decimalFormat = new DecimalFormat(".###"); //for 3 decimal points only
-        output = "- Mean: "+ decimalFormat.format(average()) +
-                "\n- Standard Deviation: "+ decimalFormat.format(standardDeviation()) +
-                "\n- Minimum: "+ Minimum +
-                "\n- Maximum: "+ Maxmimum;
+        DecimalFormat decimalFormat = new DecimalFormat(".##");
+        output = "  -----------------------------------------"+
+                "\n     * We ran: "+ Counter +" experiments"+
+                "\n     * Mean: "+ decimalFormat.format(average()) +
+                "\n     * Standard Deviation: "+ decimalFormat.format(standardDeviation()) +
+                "\n     * Minimum: "+ Minimum +
+                "\n     * Maximum: "+ Maxmimum +
+                "\n  -----------------------------------------\n";
 
         return output;
     }
