@@ -1,59 +1,28 @@
 
 package com.company.Question_3;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.ArrayList; // List of Draws
+import java.util.Random; // Randomizer
+import java.util.Scanner; // Input
 
+// JFree
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-
-/**
- * Created by ibrahimroshdy on 9/23/17.
- */
-
-/**
- * The class BirthdayParadox is used to
- * simulate the Birthday paradox, it uses
- * the class Statistics to store the results of
- * the experiments (average, min, max, and stdev) *
- */
 public class BirthdayParadox {
-
     private static Random generator = new Random();
 
-  /* The function runExperiments runs the series of experiments,
-         and stores the result into a Statistics object.
-         The parameter range is the size of the set from which random number are drawn.
-         The parameter numberOfRuns is the number of experiments to run. The function
-         returns a reference to a Statistics instance that holds the result of the
-         experiment (min, max, average, stdev).
-        */
-
-
     public static Statistics runExperiments(int range, int numberOfRuns) {
-
         Statistics statistics = new Statistics(numberOfRuns);
-
         for (int i = 0; i < numberOfRuns; i++)
             statistics.updateStatistics(oneRun(range));
-
         return statistics;
-
     }
 
 
-    /* Runs a single experiment. The parameter range defines the size of the set
-       from which the numbers are drawn. The method returns the number of random
-       draws in the set that the method underwent before drawing an element of
-       the set for the second time
-    */
     private static int oneRun(int range){
-        // REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
         int TotalDraws = 0;
         int RandomNum;
         ArrayList<Integer> List = new ArrayList<>();
@@ -78,79 +47,48 @@ public class BirthdayParadox {
         return 0;
     }
 
-    /* Main method. The default size of the set is 365, and the experiment
-       is run 50 times. Both numbers can be reset from the command line. This method
-       runs the experiments and prints the resulting Statistics. The param args,
-       if not empty, contains the runtime values for the size of the set and the number of runs
-    */
-    private static String printLine(){
-
-        return String.format("%n__________________________________________%n");
-    }
-
-
-    private static void question_1()
+    private static void question_1(String[] args)
     {
-        Scanner sc=new Scanner(System.in);
+        int range = 365;
+        int numberofruns = 50;
 
-        int range;
-        int numberOfRuns;
-
-        System.out.println("Please enter the range");
-
-        // String ana= sc.nextLine();
-
-        String entertedVal=sc.nextLine();
-
-        if(entertedVal.equals("")){
-            range=365;
-            System.out.println("Please enter the number of times the experiment is repeated");
-            entertedVal=sc.nextLine();
+        // Command Line Arguments Validation
+        if(args.length!= 0) {
+            range = Integer.parseInt(args[0]); //365
+            if(args.length>=2) {
+                numberofruns = Integer.parseInt(args[1]); //50
+            }
         }
-
-        else {
-            range = Integer.valueOf(entertedVal);
-            System.out.println("Please enter the number of times the experiment is repeated");
-            entertedVal=sc.nextLine();
-
-        }
-
-        if(entertedVal.equals(""))
-            numberOfRuns=50;
-        else
-            numberOfRuns = Integer.valueOf(entertedVal);
-
-
-        Statistics statistics = runExperiments(range,numberOfRuns);
-        System.out.print(printLine() + statistics.toString());
+        System.out.println("Birthday Paradox Program For One Range");
+        System.out.println("Range: "+range+"\nNumOfRuns: "+numberofruns+"\n");
 
 
 
+        System.out.println("Range "+range);
+        Statistics statistics = runExperiments(range,numberofruns);
+        System.out.print(statistics.toString());
+
+        // Question 3 Addition
         DefaultCategoryDataset categoryDataset = new DefaultCategoryDataset();
-
         categoryDataset.addValue(statistics.average(),"Mean","Mean");
-        categoryDataset.addValue(statistics.standardDeviation(),"SD","SD");
+        categoryDataset.addValue(statistics.standardDeviation(),"Standard Deviation","Standard Deviation");
 
+        // Question 3 Addition
         JFreeChart chart = ChartFactory.createBarChart(
-                "Mean And SD For 1 Range(s)","Experiments","Values", // Title
+                "Mean And Standard Deviation For 1 Range",
+                "Ranges","Values", // Title
                 categoryDataset, PlotOrientation.VERTICAL, // Dataset
                 true, // Show legend
-                true, // Use tooltips
+                false, // Use tooltips
                 false // Configure chart to generate URLs?
 
         );
 
-
-        ChartFrame frame = new ChartFrame("Birthday Paradox",chart);
+        ChartFrame frame = new ChartFrame("Birthday Paradox Problem For One Range",chart);
         frame.pack();
         frame.setVisible(true);
 
     }
-
-
-
-    /*This method is used for a series of experiments
-    with a number of ranges, with a series of bar graphs indicating */
 
     private static void question_2(String[] args){
         int rangeBegin = 100;
@@ -167,13 +105,13 @@ public class BirthdayParadox {
                 numberofruns = Integer.parseInt(args[2]); //1000
             }
         }
-        System.out.println("Birthday Paradox Program");
+        System.out.println("Birthday Paradox Program For Series Of Ranges");
         System.out.println("Range Begin: "+rangeBegin+"\nRange End: "+rangeEnd+"\nNumOfRuns: "+numberofruns+"\n");
 
         int stepNum = rangeEnd/rangeBegin;
 
         Statistics statistics;
-        DefaultCategoryDataset categoryDataset = new DefaultCategoryDataset();
+        DefaultCategoryDataset categoryDataset = new DefaultCategoryDataset(); // Question 3 Addition
 
 
         for(int i = 0 ; i<stepNum;i++) {
@@ -182,6 +120,7 @@ public class BirthdayParadox {
             statistics = runExperiments((i+1)*rangeBegin,numberofruns);
             System.out.print(statistics.toString());
 
+            // Question 3 Addition
             categoryDataset.addValue(statistics.average(),"Mean", ""+(i+1)*rangeBegin);
             categoryDataset.addValue(statistics.standardDeviation(),"Standard Deviation","" + (i+1)*rangeBegin);
         }
@@ -197,29 +136,32 @@ public class BirthdayParadox {
 
         );
 
-
-        ChartFrame frame = new ChartFrame("Birthday Paradox",chart);
+        ChartFrame frame = new ChartFrame("Birthday Paradox Problem For Series Of Ranges",chart);
         frame.pack();
         frame.setVisible(true);
-
     }
 
 
-
     public static void main(String[] args) {
+        // If there are 2 arguments passed, it will process as question 1, if 3 arguments, it will process as question 2.
+        // Other than that it will ask the user to specify.
 
-
-        System.out.println("Do you want to plot mean and standard deviation for question 1 or 2? (1/2 accepted only)");
-
-        Scanner sc=new Scanner(System.in);
-        String question = sc.nextLine();
-
-        if(question.equals("1")){
-            question_1();
-        } else if(question.equals("2")){
-            question_2(args);
-        } else {
-            System.out.print("Invalid entry!");
+        switch (args.length){
+            case 2 -> question_1(args);
+            case 3 -> question_2(args);
+            default -> {
+                while (true){
+                    System.out.println("Do you want to plot mean and standard deviation for question 1 or 2? (1/2 accepted only) OR (exit to end program)");
+                    Scanner sc = new Scanner(System.in);
+                    String question = sc.nextLine();
+                    switch (question) {
+                        case "1" -> question_1(args);
+                        case "2" -> question_2(args);
+                        case "exit" -> System.exit(0);
+                        default -> System.out.print("Invalid entry!");
+                    }
+                }
+            }
         }
     }
 }

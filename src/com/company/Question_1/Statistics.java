@@ -1,7 +1,7 @@
-package com.company.Question_3;
+package com.company.Question_1;
 
-import java.text.DecimalFormat; // For 2 decimal points
-import java.util.ArrayList; // For list of counters to matches
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 
 public class Statistics {
@@ -10,7 +10,7 @@ public class Statistics {
     private final ArrayList<Integer> List;
     public int Minimum,Maxmimum;
 
-// The numberOfRuns the number of experiments that will be run
+    // The numberOfRuns the number of experiments that will be run
     public Statistics(int numberOfRuns){    // Initializing
         List = new ArrayList<>();
         this.numberOfRuns=numberOfRuns;

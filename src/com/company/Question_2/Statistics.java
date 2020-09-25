@@ -1,26 +1,16 @@
 package com.company.Question_2;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
+import java.text.DecimalFormat; // For 2 decimal points
+import java.util.ArrayList; // For list of counters to matches
 
-/**
- * The class Statistics accumulates the results of
- * the experiments. It knows ahead of time how many experiments
- * will be run, and provides at the end the min, the max, the
- * average and the standard deviation for the data. *
- * This class should not use classes such as Array,
- * Lists etc. to store the data, only primitive types
- * and java arrays. *
- *
- */
+
 public class Statistics {
-// ADD HERE INSTANCE VARIABLES DECLARATION
-    //private Stack<Integer> Stack;
-    private int numberOfRuns,Counter;
-    private ArrayList<Integer> List;
+    private final int numberOfRuns;
+    private int Counter;
+    private final ArrayList<Integer> List;
     public int Minimum,Maxmimum;
 
-// The numberOfRuns the number of experiments that will be run
+    // The numberOfRuns the number of experiments that will be run
     public Statistics(int numberOfRuns){    // Initializing
         List = new ArrayList<>();
         this.numberOfRuns=numberOfRuns;
@@ -28,11 +18,8 @@ public class Statistics {
         this.Maxmimum = Integer.MIN_VALUE;
         this.Minimum = Integer.MAX_VALUE;
     }
-/* Updates statistics after one experiment. This method cannot be called more times than the parameter
-that was passed in the constructor. If it is, an error message should be printed and no change should
-occur. The param value the result returned from a new experiment */
 
-    public void updateStatistics(int value){
+    public void updateStatistics(int value){ // Total Experiments List
         if(Counter < numberOfRuns) {
             List.add(value);
             Counter++;
@@ -40,8 +27,8 @@ occur. The param value the result returned from a new experiment */
             System.out.println("Error! Nothing will happen!");
         }
     }
-    /* The function returns the current average of the values passed to the method updateStatistic */
-    public double average(){
+
+    public double average(){ // MEAN
         double sum = 0;
         for(int num : List) {
             sum += num;
@@ -52,8 +39,7 @@ occur. The param value the result returned from a new experiment */
         }
         return sum/List.size();
     }
-    /* The function returns the current standard deviation of the values passed to the method updateStatistic */
-    public double standardDeviation(){  // sqrt(sum [(xi-X^)^2]/n)
+    public double standardDeviation(){  // Standard Deviation = sqrt(sum [(xi-X^)^2]/n)
         double avg = average();
         double sd = 0;
         for(int num : List){
@@ -61,11 +47,8 @@ occur. The param value the result returned from a new experiment */
         }
         return Math.sqrt(sd/numberOfRuns);
     }
-    /* this function returns the complete statistics information: current minimum, maximum, average, and
-    stdev. For the last two, only two digit decimals are printed. The toString function will define how
-    an object will be printed out if you use something like System.out.println(objectName).
-    It simply returns a string back describing the text that will be printed out. */
-    public String toString(){
+
+    public String toString(){ // OUTPUT FUNCTION TO PRINT STATS FOR EVERY EXPERIMENT
         String output;
         DecimalFormat decimalFormat = new DecimalFormat(".##");
         output = "  -----------------------------------------"+

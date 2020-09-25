@@ -1,4 +1,4 @@
-package com.company.Question_2;
+package com.company.Question_1;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -39,33 +39,25 @@ public class BirthdayParadox {
         }
         return 0;
     }
-
+    
     public static void main(String[] args) {
-        int rangeBegin = 100;
-        int rangeEnd = 10000;
-        int numberofruns = 1000;
+        int range = 365;
+        int numberofruns = 50;
 
         // Command Line Arguments Validation
         if(args.length!= 0) {
-            rangeBegin = Integer.parseInt(args[0]); //100
+            range = Integer.parseInt(args[0]); //365
             if(args.length>=2) {
-                rangeEnd = Integer.parseInt(args[1]); //10000
-            }
-            if(args.length>=3) {
-                numberofruns = Integer.parseInt(args[2]); //1000
+                numberofruns = Integer.parseInt(args[1]); //50
             }
         }
-        System.out.println("Birthday Paradox Program");
-        System.out.println("Range Begin: "+rangeBegin+"\nRange End: "+rangeEnd+"\nNumOfRuns: "+numberofruns+"\n");
+        System.out.println("Birthday Paradox Program For One Range");
+        System.out.println("Range: "+range+"\nNumOfRuns: "+numberofruns+"\n");
 
-        int stepNum = rangeEnd/rangeBegin;
 
-        Statistics statistics;
 
-        for(int i = 0 ; i<stepNum;i++) {
-            System.out.println("Range "+(i+1)*rangeBegin);
-            statistics = runExperiments((i+1)*rangeBegin,numberofruns);
-            System.out.print(statistics.toString());
-        }
+        System.out.println("Range "+range);
+        Statistics statistics = runExperiments(range,numberofruns);
+        System.out.print(statistics.toString());
     }
 }
